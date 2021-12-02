@@ -1,4 +1,4 @@
-eusing System.Collections.Generic;
+using System.Collections.Generic;
 using System;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
