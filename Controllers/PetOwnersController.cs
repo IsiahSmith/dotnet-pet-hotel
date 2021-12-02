@@ -72,6 +72,41 @@ namespace pet_hotel.Controllers
 
             return NoContent();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //PUT /api/PetOwners/:id, body must be JSON with all required fields 
+        //id = id of petOwner in DB
+        //petOwner= the petOwner JSON object 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, PetOwner petOwner)
+        {
+            Console.WriteLine("In PUT route");
+
+            if(id != petOwner.id){
+                return BadRequest(); //400
+            }
+
+            //update in DB 
+            _context.PetOwners.Update(petOwner);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
 
