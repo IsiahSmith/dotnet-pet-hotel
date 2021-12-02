@@ -49,5 +49,21 @@ namespace pet_hotel.Controllers
 
         //     return new List<Pet>{ newPet1, newPet2};
         // }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Pet pet)
+        {
+            Console.WriteLine("In PUT");
+
+            if(id != pet.id) {
+                return BadRequest(); // 400
+            }
+
+            // update in DB
+            _context.Update(pet);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
