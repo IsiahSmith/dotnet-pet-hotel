@@ -79,44 +79,6 @@ namespace pet_hotel.Controllers
       return pet;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // checks out a pet after they have been checked in
     // by changing the checkedInAt to null
     [HttpPut("{id}/checkout")]
@@ -135,5 +97,64 @@ namespace pet_hotel.Controllers
 
       return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+      Console.WriteLine("Deleting with the id" + id);
+      Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+
+      if (pet is null)
+      {
+        //not found
+        return NotFound();
+      }
+
+      //delete the pet
+      _context.Pets.Remove(pet);
+      _context.SaveChanges();
+
+      //respond
+      return NoContent(); //204
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
-}
