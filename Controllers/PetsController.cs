@@ -79,25 +79,6 @@ namespace pet_hotel.Controllers
       return pet;
     }
 
-    // checks out a pet after they have been checked in
-    // by changing the checkedInAt to null
-    [HttpPut("{id}/checkout")]
-    public IActionResult CheckoutById(int id, Pet pet)
-    {
-      // check if this is the correct pet 
-      if (pet.id != id)
-      {
-        return BadRequest();
-      }
-
-      pet.checkedInAt = null;
-
-      _context.Pets.Update(pet);
-      _context.SaveChanges();
-
-      return NoContent();
-    }
-
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
@@ -118,43 +99,33 @@ namespace pet_hotel.Controllers
       return NoContent(); //204
     }
 
+    // PUT to set CheckedIn time of pet
+    [HttpPut("{id}/checkin")]
+    public IActionResult CheckedIn(int id)
+    {
+      Console.WriteLine("In CheckedIn PUT");
 
+      Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+      pet.checkedInAt = DateTime.Now;
 
+      _context.Pets.Update(pet);
+      _context.SaveChanges();
 
+      return NoContent();
+    }
+    // checks out a pet after they have been checked in
+    // by changing the checkedInAt to null
+    [HttpPut("{id}/checkout")]
+    public IActionResult CheckoutById(int id)
+    {
 
+      Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+      pet.checkedInAt = null;
 
+      _context.Pets.Update(pet);
+      _context.SaveChanges();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      return NoContent();
+    }
   }
+}
