@@ -79,28 +79,23 @@ namespace pet_hotel.Controllers
       return pet;
     }
 
-    // [HttpGet]
-    // [Route("test")]
-    // public IEnumerable<Pet> GetPets() {
-    //     PetOwner blaine = new PetOwner{
-    //         name = "Blaine"
-    //     };
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        Console.WriteLine("Deleting with the id" + id);
+        Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
 
-    //     Pet newPet1 = new Pet {
-    //         name = "Big Dog",
-    //         petOwner = blaine,
-    //         color = PetColorType.Black,
-    //         breed = PetBreedType.Poodle,
-    //     };
+        if(pet is null){
+            //not found
+            return NotFound();
+        }
 
-    //     Pet newPet2 = new Pet {
-    //         name = "Little Dog",
-    //         petOwner = blaine,
-    //         color = PetColorType.Golden,
-    //         breed = PetBreedType.Labrador,
-    //     };
+        //delete the pet
+        _context.Pets.Remove(pet);
+        _context.SaveChanges();
 
-    //     return new List<Pet>{ newPet1, newPet2};
-    // }
+        //respond
+        return NoContent(); //204
+    }
   }
 }
