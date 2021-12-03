@@ -28,6 +28,23 @@ namespace pet_hotel.Controllers
       return _context.Pets;
     }
 
+    // GET /api/pets/:id
+    // will return the pet at that id
+    [HttpGet("{id}")]
+    public ActionResult<Pet> GetById(int id)
+    {
+      Console.WriteLine("GET /api/pets/:id");
+      Pet pet = _context.Pets.SingleOrDefault(pet => pet.id == id);
+
+      // check that this is actually a pet object that has been returned
+      if (pet == null)
+      {
+        return NotFound();
+      }
+
+      return pet;
+    }
+
     // [HttpGet]
     // [Route("test")]
     // public IEnumerable<Pet> GetPets() {
