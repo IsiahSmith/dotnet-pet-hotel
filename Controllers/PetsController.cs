@@ -79,28 +79,61 @@ namespace pet_hotel.Controllers
       return pet;
     }
 
-    // [HttpGet]
-    // [Route("test")]
-    // public IEnumerable<Pet> GetPets() {
-    //     PetOwner blaine = new PetOwner{
-    //         name = "Blaine"
-    //     };
 
-    //     Pet newPet1 = new Pet {
-    //         name = "Big Dog",
-    //         petOwner = blaine,
-    //         color = PetColorType.Black,
-    //         breed = PetBreedType.Poodle,
-    //     };
 
-    //     Pet newPet2 = new Pet {
-    //         name = "Little Dog",
-    //         petOwner = blaine,
-    //         color = PetColorType.Golden,
-    //         breed = PetBreedType.Labrador,
-    //     };
 
-    //     return new List<Pet>{ newPet1, newPet2};
-    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // checks out a pet after they have been checked in
+    // by changing the checkedInAt to null
+    [HttpPut("{id}/checkout")]
+    public IActionResult CheckoutById(int id, Pet pet)
+    {
+      // check if this is the correct pet 
+      if (pet.id != id)
+      {
+        return BadRequest();
+      }
+
+      pet.checkedInAt = null;
+
+      _context.Pets.Update(pet);
+      _context.SaveChanges();
+
+      return NoContent();
+    }
   }
 }
