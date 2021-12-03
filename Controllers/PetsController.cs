@@ -15,14 +15,16 @@ namespace pet_hotel.Controllers
     public class PetsController : ControllerBase
     {
         private readonly ApplicationContext _context;
-        public PetsController(ApplicationContext context) {
+        public PetsController(ApplicationContext context)
+        {
             _context = context;
         }
 
         // This is just a stub for GET / to prevent any weird frontend errors that 
         // occur when the route is missing in this controller
         [HttpGet]
-        public IEnumerable<Pet> GetPets() {
+        public IEnumerable<Pet> GetPets()
+        {
             return new List<Pet>();
         }
 
@@ -50,12 +52,32 @@ namespace pet_hotel.Controllers
         //     return new List<Pet>{ newPet1, newPet2};
         // }
 
+
+
+        [HttpPost]
+        public IActionResult Create(Pet pet)
+        {
+            //pet object is required on the request body
+            //must be JSON
+            Console.WriteLine("This is the post" + pet);
+            _context.Add(pet);
+
+            //save changes
+            _context.SaveChanges();
+
+            //respond
+            return CreatedAtAction(nameof(Create), new { id = pet.id }, pet);
+
+        }
+
+        // PUT to update pet information
         [HttpPut("{id}")]
         public IActionResult Put(int id, Pet pet)
         {
             Console.WriteLine("In PUT");
 
-            if(id != pet.id) {
+            if (id != pet.id)
+            {
                 return BadRequest(); // 400
             }
 
