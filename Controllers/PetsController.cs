@@ -49,5 +49,23 @@ namespace pet_hotel.Controllers
 
         //     return new List<Pet>{ newPet1, newPet2};
         // }
+
+
+
+        [HttpPost]
+        public IActionResult Create(Pet pet)
+        {
+            //pet object is required on the request body
+            //must be JSON
+            Console.WriteLine("This is the post" + pet);
+            _context.Add(pet);
+            
+            //save changes
+            _context.SaveChanges();
+
+            //respond
+            return CreatedAtAction(nameof(Create), new {id = pet.id}, pet);
+
+        }
     }
 }
