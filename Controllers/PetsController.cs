@@ -59,7 +59,7 @@ namespace pet_hotel.Controllers
     [HttpGet]
     public IEnumerable<Pet> GetPets()
     {
-      return _context.Pets;
+      return _context.Pets.Include(pet => pet.petOwner);
     }
 
     // GET /api/pets/:id
@@ -76,7 +76,7 @@ namespace pet_hotel.Controllers
         return NotFound();
       }
 
-      return pet;
+      return _context.Pets.Include(pet => pet.petOwner).SingleOrDefault(pet => pet.id == id);
     }
 
     [HttpDelete("{id}")]
