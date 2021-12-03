@@ -232,4 +232,5 @@ _Pvt_Extensions
 .fake/
 
 # Migrations folder
-Migrations/
+./Migrations/
+**/Migrations/**

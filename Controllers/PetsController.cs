@@ -36,6 +36,24 @@ namespace pet_hotel.Controllers
 
     }
 
+    // PUT to update pet information
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, Pet pet)
+    {
+      Console.WriteLine("In PUT");
+
+      if (id != pet.id)
+      {
+        return BadRequest(); // 400
+      }
+
+      // update in DB
+      _context.Update(pet);
+      _context.SaveChanges();
+
+      return NoContent();
+    }
+
     // GET /api/pets
     // returns all pets
     [HttpGet]
